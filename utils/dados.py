@@ -176,7 +176,8 @@ def formatar_medias(jogos, isTreino, num_jogos_passados_media=10):
 # Exemplo de uso
 if __name__ == "__main__":
     temporada = '2008-2009'
-    # jogos = get_jogos_temporada(temporada)
+    #jogos = get_jogos_temporada(temporada)
+    #print(jogos)
     # jogos = get_jogos_equipe("Minas")
  
     # for jogo in jogos:
