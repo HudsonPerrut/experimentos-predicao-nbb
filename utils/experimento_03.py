@@ -25,6 +25,10 @@ def descompactar_estatisticas(jogos):
             'ano': jogo['ano'],
             'equipe_casa': jogo['equipe_casa'],
             'equipe_visitante': jogo['equipe_visitante'],
+
+            # (1 = vitoria do time da casa, 0 = derrota)    
+            'resultado': 1 if jogo['placar_casa'] > jogo['placar_visitante'] else 0,
+
             # Estatísticas da equipe da casa
             'Pts_casa': casa_estatisticas.get('Pts', 0),
             '3P_casa': casa_estatisticas.get('3P', 0),
