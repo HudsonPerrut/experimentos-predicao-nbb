@@ -97,8 +97,8 @@ def gerar_arquivos_treino_teste(temporada, qtd_jogos_base, base_path):
     jogos_teste = get_jogos_temporada(temporada)
     
     # Formatar os jogos com médias para treino
-    jogos_treino_formatados = formatar_medias(jogos_treino, True, 15)
-    jogos_teste_formatados = formatar_medias(jogos_teste, False, 15)
+    jogos_treino_formatados = formatar_medias(jogos_treino, True, qtd_jogos_base)
+    jogos_teste_formatados = formatar_medias(jogos_teste, False, qtd_jogos_base)
 
     indice = qtd_jogos_base
     num_arquivo = 1
@@ -111,7 +111,7 @@ def gerar_arquivos_treino_teste(temporada, qtd_jogos_base, base_path):
         teste_formatado = descompactar_estatisticas(teste)
 
     
-        final_path = os.path.join(base_path, 'data', 'experimento_03', temporada, f'{indice}-1')
+        final_path = os.path.join(base_path, 'data', 'experimento_03', str(qtd_jogos_base), temporada, f'{indice}-1')
         
         # Definir o caminho do diretório para salvar os arquivos
         temporada_path = os.path.join(final_path)
@@ -138,11 +138,11 @@ if __name__ == "__main__":
     #               '2023-2024'
     #              ]
 
-    temporadas = ['2021-2022']
+    temporadas = ['2019-2020']
 
     base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     
-    qtd_jogos_base = 15
+    qtd_jogos_base = 5
 
     # Loop através de todas as temporadas
     for temporada in temporadas:
