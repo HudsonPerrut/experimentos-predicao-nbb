@@ -3,6 +3,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, f1_score
 
 from experimentos import read_dados
+import pandas as pd
 
 def get_hyper_params_rf(X_train, y_train):
     # Definir os hiperparâmetros para o Grid Search
@@ -27,7 +28,18 @@ def get_hyper_params_rf(X_train, y_train):
     return best_params
 
 def run_model_rf(treino_path, teste_path, useGridSearch=True):
-    X_train, X_test, y_train, y_test = read_dados(treino_path, teste_path)
+    #X_train, X_test, y_train, y_test = read_dados(treino_path, teste_path)
+
+    colunas_vazamento = [
+        'placar_casa', 'placar_visitante', 'resultado',
+        'data', 'ano', 'equipe_casa', 'equipe_visitante'
+    ]
+    X_train = df_train.drop(columns=colunas_vazamento, errors='ignore')
+    X_test = df_test.drop(columns=colunas_vazamento, errors='ignore')
+
+    y_train = df_train['resultado']
+    y_test = df_test['resultado']
+
 
     if useGridSearch:
         # Obter os melhores hiperparâmetros usando Grid Search

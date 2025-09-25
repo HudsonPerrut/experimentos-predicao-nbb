@@ -1,8 +1,9 @@
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, f1_score
-
 from experimentos import read_dados
+
+import pandas as pd 
 
 def get_hyper_params_svm(X_train, y_train):
     # Definir os hiperparâmetros para o Grid Search
@@ -26,11 +27,29 @@ def get_hyper_params_svm(X_train, y_train):
     return best_params
 
 def run_model_svm(treino_path, teste_path, useGridSearch=True):
-    X_train, X_test, y_train, y_test = read_dados(treino_path, teste_path)
+    #X_train, X_test, y_train, y_test = read_dados(treino_path, teste_path)
+
+    df_train = pd.read_csv(treino_path)
+    df_test = pd.read_csv(teste_path)
+
+    # Remover colunas de vazamento
+    colunas_vazamento = [
+        'placar_casa', 'placar_visitante', 'resultado',
+        'data', 'ano', 'equipe_casa', 'equipe_visitante'
+    ]
+
+    X_train = df_train.drop(columns=colunas_vazamento, errors='ignore')
+    X_test = df_test.drop(columns=colunas_vazamento, errors='ignore')
+
+    y_train = df_train['resultado']
+    y_test = df_test['resultado']
 
     if useGridSearch:
         # Obter os melhores hiperparâmetros usando Grid Search
         best_params = get_hyper_params_svm(X_train, y_train)
+
+        if best_params is None:
+            return None, None, None
 
         # Criar e treinar o modelo com os melhores hiperparâmetros
         model = SVC(

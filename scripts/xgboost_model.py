@@ -1,6 +1,7 @@
 from xgboost import XGBClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, f1_score
+import pandas as pd 
 
 from experimentos import read_dados
 
@@ -31,7 +32,23 @@ def get_hyper_params_xgboost(X_train, y_train):
     return best_params
 
 def run_model_xgboost(treino_path, teste_path, useGridSearch=True):
-    X_train, X_test, y_train, y_test = read_dados(treino_path, teste_path)
+    #X_train, X_test, y_train, y_test = read_dados(treino_path, teste_path)
+
+    # Remover colunas de vazamento
+    df_train = pd.read_csv(treino_path)
+    df_test = pd.read_csv(teste_path)
+
+    colunas_vazamento = [
+    'placar_casa', 'placar_visitante', 'resultado',
+    'data', 'ano', 'equipe_casa', 'equipe_visitante'
+    ]
+
+    X_train = df_train.drop(columns=colunas_vazamento, errors='ignore')
+    X_test = df_test.drop(columns=colunas_vazamento, errors='ignore')
+
+
+    y_train = df_train['resultado']
+    y_test = df_test['resultado']
 
     if useGridSearch:
         # Obter os melhores hiperparâmetros usando Grid Search
