@@ -3,7 +3,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, f1_score
 import pandas as pd 
 
-from experimentos import read_dados
 
 def get_hyper_params_xgboost(X_train, y_train):
     # Definir os hiperparâmetros para o Grid Search

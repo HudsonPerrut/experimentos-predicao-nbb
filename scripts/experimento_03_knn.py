@@ -1,15 +1,14 @@
 import os
 import time
 import numpy as np
-
-from svm import run_model_svm
+from knn import run_model_knn
 from experimentos import save_results_csv
 
-modelo = 'svm'
+modelo = 'knn'
 
 
 def run_models(data_dir):
-    files        = os.listdir(data_dir)
+    files       = os.listdir(data_dir)
     treino_files = sorted([f for f in files if f.startswith('treino_')])
     teste_files  = sorted([f for f in files if f.startswith('teste_')])
 
@@ -20,7 +19,7 @@ def run_models(data_dir):
         treino_path = os.path.join(data_dir, treino_file)
         teste_path  = os.path.join(data_dir, teste_file)
 
-        acuracia, f1, best_params = run_model_svm(treino_path, teste_path, True)
+        acuracia, f1, best_params = run_model_knn(treino_path, teste_path, True)
 
         if acuracia is not None:
             acuracias.append(acuracia)
@@ -31,6 +30,7 @@ def run_models(data_dir):
 
 if __name__ == '__main__':
     start_time = time.time()
+    results    = []
 
     base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
             todas_f1        = []
 
             for pasta in subpastas:
-                data_dir             = os.path.join(temporada_dir, pasta)
+                data_dir          = os.path.join(temporada_dir, pasta)
                 acuracias, f1_scores = run_models(data_dir)
                 todas_acuracias.extend(acuracias)
                 todas_f1.extend(f1_scores)
@@ -76,7 +76,7 @@ if __name__ == '__main__':
                 'F1-Score':           f'{media_f1:.4f}'
             })
 
-            print(f'[SVM] K={jogos_base} | {temporada} → Acurácia: {media_acuracia:.4f}')
+            print(f'[KNN] K={jogos_base} | {temporada} → Acurácia: {media_acuracia:.4f}')
 
         output_dir  = os.path.join(base_path, 'results', 'experimento_03')
         os.makedirs(output_dir, exist_ok=True)

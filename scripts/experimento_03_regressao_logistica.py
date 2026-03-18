@@ -1,11 +1,10 @@
 import os
 import time
 import numpy as np
-
-from svm import run_model_svm
+from regressao_logistica import run_model_regressao_logistica
 from experimentos import save_results_csv
 
-modelo = 'svm'
+modelo = 'regressao_logistica'
 
 
 def run_models(data_dir):
@@ -20,7 +19,7 @@ def run_models(data_dir):
         treino_path = os.path.join(data_dir, treino_file)
         teste_path  = os.path.join(data_dir, teste_file)
 
-        acuracia, f1, best_params = run_model_svm(treino_path, teste_path, True)
+        acuracia, f1, best_params = run_model_regressao_logistica(treino_path, teste_path, True)
 
         if acuracia is not None:
             acuracias.append(acuracia)
@@ -76,7 +75,7 @@ if __name__ == '__main__':
                 'F1-Score':           f'{media_f1:.4f}'
             })
 
-            print(f'[SVM] K={jogos_base} | {temporada} → Acurácia: {media_acuracia:.4f}')
+            print(f'[Regressão Logística] K={jogos_base} | {temporada} → Acurácia: {media_acuracia:.4f}')
 
         output_dir  = os.path.join(base_path, 'results', 'experimento_03')
         os.makedirs(output_dir, exist_ok=True)

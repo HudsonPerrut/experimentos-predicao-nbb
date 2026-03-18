@@ -124,27 +124,21 @@ def gerar_arquivos_treino_teste(temporada, qtd_jogos_base, base_path):
         num_arquivo += 1
 
 if __name__ == "__main__":
-
-    # temporadas = ['2013-2014', '2014-2015',
-    #               '2015-2016', '2016-2017', '2019-2020',
-    #               '2018-2019', '2020-2021', '2021-2022',
-    #               '2022-2023', '2023-2024'
-    #              ]
-    
-    # temporadas = ['2008-2009', '2009-2010', '2011-2012',
-    #               '2012-2013', '2013-2014', '2014-2015',
-    #               '2015-2016', '2016-2017', '2018-2019', '2019-2020',
-    #               '2020-2021', '2021-2022', '2022-2023',
-    #               '2023-2024'
-    #              ]
-
-    temporadas = ['2019-2020']
-
+ 
+    temporadas = [
+        '2008-2009', '2009-2010', '2011-2012',
+        '2012-2013', '2013-2014', '2014-2015',
+        '2015-2016', '2016-2017', '2018-2019', '2019-2020',
+        '2020-2021', '2021-2022', '2022-2023', '2023-2024'
+    ]
+ 
     base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    
-    qtd_jogos_base = 5
-
-    # Loop através de todas as temporadas
-    for temporada in temporadas:
-        gerar_arquivos_treino_teste(temporada, qtd_jogos_base, base_path)
-        print(f'Arquivos - {temporada}')
+ 
+    # Roda para K = 5, 10 e 15
+    for qtd_jogos_base in [5, 10, 15]:
+        print(f'\n{"="*50}')
+        print(f'Gerando dados para K = {qtd_jogos_base}')
+        print(f'{"="*50}')
+        for temporada in temporadas:
+            gerar_arquivos_treino_teste(temporada, qtd_jogos_base, base_path)
+            print(f' K={qtd_jogos_base} | {temporada}')
