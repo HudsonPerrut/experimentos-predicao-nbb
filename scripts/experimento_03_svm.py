@@ -41,7 +41,7 @@ if __name__ == '__main__':
         '2020-2021', '2021-2022', '2022-2023', '2023-2024'
     ]
 
-    for jogos_base in [5, 10, 15]:
+    for jogos_base in [10, 15]:
         results = []
         for temporada in temporadas:
             temporada_dir = os.path.join(
