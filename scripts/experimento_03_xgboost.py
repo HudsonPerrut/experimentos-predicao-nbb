@@ -34,10 +34,12 @@ if __name__ == '__main__':
     base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
     temporadas = [
-        '2008-2009', '2009-2010', '2011-2012',
+       # '2008-2009' ,
+       #  '2009-2010', '2011-2012',
         '2012-2013', '2013-2014', '2014-2015',
-        '2015-2016', '2016-2017', '2018-2019', '2019-2020',
-        '2020-2021', '2021-2022', '2022-2023', '2023-2024'
+        '2015-2016', '2016-2017',
+        # '2018-2019', '2019-2020',
+        #'2020-2021', '2021-2022', '2022-2023', '2023-2024'
     ]
 
     for jogos_base in [5, 10, 15]:
@@ -80,7 +82,7 @@ if __name__ == '__main__':
         output_dir  = os.path.join(base_path, 'results', 'experimento_03_xgboost')
         os.makedirs(output_dir, exist_ok=True)
         output_path = os.path.join(
-            output_dir, f'{modelo}_experimento_03_janela{jogos_base}.csv'
+            output_dir, f'{modelo}_experimento_03_janela{jogos_base}_2012-2017.csv'
         )
         save_results_csv(output_path, results)
 
